@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import signUp from "./signUp";
 import { Input } from "../../components/signUp/input";
 
@@ -32,7 +32,7 @@ export function SignUp() {
         ...lastErrors,
         lastName: undefined,
       };
-    }); //Kullanici ilgili alanlari doldurunca hata mesaji silinecek
+    });
   }, [lastName]);
 
   useEffect(() => {
@@ -41,8 +41,17 @@ export function SignUp() {
         ...lastErrors,
         email: undefined,
       };
-    }); //Kullanici ilgili alanlari doldurunca hata mesaji silinecek
+    });
   }, [email]);
+
+  useEffect(() => {
+    setErrors(function (lastErrors) {
+      return {
+        ...lastErrors,
+        password: undefined,
+      };
+    });
+  }, [password]);
 
   useEffect(() => {
     setErrors(function (lastErrors) {
@@ -50,7 +59,7 @@ export function SignUp() {
         ...lastErrors,
         phone: undefined,
       };
-    }); //Kullanici ilgili alanlari doldurunca hata mesaji silinecek
+    });
   }, [phone]);
 
   useEffect(() => {
@@ -59,7 +68,7 @@ export function SignUp() {
         ...lastErrors,
         gender: undefined,
       };
-    }); //Kullanici ilgili alanlari doldurunca hata mesaji silinecek
+    });
   }, [gender]);
 
   useEffect(() => {
@@ -68,7 +77,7 @@ export function SignUp() {
         ...lastErrors,
         birthDate: undefined,
       };
-    }); //Kullanici ilgili alanlari doldurunca hata mesaji silinecek
+    });
   }, [birthDate]);
 
   //   const onChangeFirstName = (event) => {
@@ -92,27 +101,39 @@ export function SignUp() {
         gender,
         birthDate,
       });
-      setSuccessMessage(response.data.message);
+      setSuccessMessage(response.data.friendlyMessage.description);
       //asagidaki then,catch,finally kullanimini await ile yapabiliriz
       // .then((response) => {
       //   setSuccessMessage(response.data.message);
       // })
       // .finally(() => setApiProgress(false));
+      console.log(response.data.errorMessages);
     } catch (axiosError) {
       console.log(axiosError);
       //400 hata mesaji iceriyorsa validasyon hatasini göster
-      if (
-        axiosError.response?.data &&
-        axiosError.response.data.status === 400
-      ) {
-        setErrors(axiosError.response.data.validationErrors);
+      if (axiosError.response?.data) { //Request gönderim islemi sirasinda request serverden yanit alamazsa
+        if (axiosError.response.status === 400) { //Response 400 hatasi iceriyorsa
+          setErrors(axiosError.response.data.validationErrors); //Response icerisindeki validasyon hatasini goster
+        }else {
+          // 400 hatasi yoksa hata mesaji göster
+          setGeneralError(axiosError.response.data.errorMessages); //Backend den gelen hata mesaji(email,telefon mevcut hatalari)
+        }
       } else {
-        setGeneralError("Unexpected error occurred. Please try again");
+        setGeneralError(axiosError.response.data.errorMessages);
       }
     } finally {
       setApiProgress(false);
     }
   };
+
+  //UseMemo hook u ile sadece ilgili alanlarda degisiklik oldugunda kontrol yaptiriyoruz. Aksi durumda her islemde bu kontrolü yapacaktir.
+  const passwordRepeatError = useMemo(() => {
+    if (password && password !== passwordRepeat) {
+      // console.log("always running");
+      return "Passwords mismatch";
+    }
+    return "";
+  }, [password, passwordRepeat]);
 
   return (
     <div className="container">
@@ -129,7 +150,7 @@ export function SignUp() {
               onChange={(event) => setFirstName(event.target.value)}
             />
 
-            {/* rtak mekanizmaya gectikten sonra sadece bizim verdigimiz
+            {/* Ortak mekanizmaya gectikten sonra sadece bizim verdigimiz
             parametreleri dolduruyoruz yukarida.*/
             /* <div className="mb-3">
               <label htmlFor="firstName" className="form-label">
@@ -159,7 +180,7 @@ export function SignUp() {
               label="Email"
               error={errors.email}
               onChange={(event) => setEmail(event.target.value)}
-              type="email"
+              // type="email"
             />
             <Input
               id="password"
@@ -171,7 +192,7 @@ export function SignUp() {
             <Input
               id="passwordRepeat"
               label="Password Repeat"
-              error={errors.passwordRepeat}
+              error={passwordRepeatError}
               onChange={(event) => setPasswordRepeat(event.target.value)}
               type="password"
             />
@@ -194,10 +215,10 @@ export function SignUp() {
               onChange={(event) => setBirthDate(event.target.value)}
             />
             {successMessage && (
-              <div className="alert alert-success">{successMessage}</div>
+              <div className="alert alert-success text-center">{successMessage}</div>
             )}
             {generalError && (
-              <div className="alert alert-danger">{generalError}</div>
+              <div className="alert alert-danger text-center">{generalError}</div>
             )}
             <div className="text-center">
               <button
@@ -220,94 +241,4 @@ export function SignUp() {
       </div>
     </div>
   );
-
-  // return (
-  //   <>
-  //     <div className="container my-5">
-  //       <div className="col-lg-6 offset-lg-3 col-sm-8 offset-sm-2">
-  //         <form className="card" onSubmit={onSubmit}>
-  //           <div className="text-center card-header">
-  //             <h1>Sign Up</h1>
-  //           </div>
-  //           <div className="card-body mx-2 my-2">
-  //             <Input
-  //               id="firstName"
-  //               // label={t("firstName")}
-  //               // error={errors.firstName}
-  //               onchange={(event) => setFirstName(event.target.value)}
-  //             />
-  //             <Input
-  //               id="lastName"
-  //               // label={t("lastName")}
-  //               // error={errors.lastName}
-  //               onchange={(event) => setLastName(event.target.value)}
-  //             />
-  //             <Input
-  //               id="email"
-  //               // label={t("email")}
-  //               // error={errors.email}
-  //               onchange={(event) => setEmail(event.target.value)}
-  //               type="email"
-  //             />
-  //             <Input
-  //               id="password"
-  //               // label={t("password")}
-  //               // error={errors.password}
-  //               onchange={(event) => setPassword(event.target.value)}
-  //               type="password"
-  //             />
-
-  //             <Input
-  //               id="passwordRepeat"
-  //               // label={t("passwordRepeat")}
-  //               // error={passwordRepeatError}
-  //               onChange={(event) => setPasswordRepeat(event.target.value)}
-  //               type="password"
-  //             />
-  //             <Input
-  //               id="phone"
-  //               // label={t("phone")}
-  //               // error={errors.phone}
-  //               onchange={(event) => setPhone(event.target.value)}
-  //             />
-  //             <Input
-  //               id="gender"
-  //               // label={t("gender")}
-  //               // error={errors.gender}
-  //               onchange={(event) => setGender(event.target.value)}
-  //             />
-  //             <Input
-  //               id="birthDate"
-  //               // label={t("birthDate")}
-  //               // error={errors.birthDate}
-  //               onchange={(event) => setBirthDate(event.target.value)}
-  //             />
-
-  //             {successMessage && <div className="alert alert-success">{successMessage}</div>}
-
-  //             <div className="text-center my-3">
-  //               <Button
-  //                 disabled={
-  //                   apiProgress || !password || password !== passwordRepeat
-  //                 }
-  //                 //Password yoksa veya password-passwordRepeat esit degilse disable et
-  //                 // apiProgress={apiProgress} //Butona bir defa basilinca disable ediyoruz
-  //               >
-  //                 {apiProgress && (
-  //                   <span
-  //                     className="spinner-border spinner-border-sm"
-  //                     role="status"
-  //                     aria-hidden="true"
-  //                   ></span>
-  //                 )}
-  //                 {/* {t("signUp")} */}
-  //                 Sign Up
-  //               </Button>
-  //             </div>
-  //           </div>
-  //         </form>
-  //       </div>
-  //     </div>
-  //   </>
-  // );
 }
