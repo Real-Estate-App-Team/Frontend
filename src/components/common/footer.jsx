@@ -9,7 +9,7 @@ const Footer = () => {
               <Col xs={12} md={4} className='section1'>
               <div className='logo'>
                       <a href="#home">
-                          <img src="/assets/img/logo-white.png" alt="prettierhomes" />
+                          <img src="/assets/images/logo/logo-white.png" alt="prettierhomes" />
                       </a>
               </div>
               <div className='slogan'>

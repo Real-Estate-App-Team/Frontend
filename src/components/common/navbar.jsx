@@ -11,7 +11,7 @@ function OffcanvasExample() {
     <Navbar expand={expand} className="bg-none mb-3">
       <Container fluid>
           <Navbar.Brand href="#">
-          <img src="/assets/img/logo.png" alt="logo.png" />
+          <img src="/assets/images/logo/logo.png" alt="logo.png" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
         <Navbar.Offcanvas
@@ -29,7 +29,7 @@ function OffcanvasExample() {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-center flex-grow-1 pe-3">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="#properties">Properties</Nav.Link>
             <Nav.Link href="#about">About</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
@@ -38,7 +38,7 @@ function OffcanvasExample() {
             <UserOutlined className='d-none d-lg-block' />
             <Nav.Link href="#login">Login</Nav.Link>
             <div className='d-none d-lg-block'>/</div>
-            <Nav.Link href="#register">Register</Nav.Link>
+            <Nav.Link href="signUp">Register</Nav.Link>
           </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
