@@ -1,6 +1,6 @@
 export const config = {
     project: {
-        name: 'IT Mastery School',
+        name: 'Prettier Homes',
         slogan: "Empowering Minds, Unleashing Tech: Where IT Dreams Take Flight!",
         description: 'Unlock the Future of Technology at Our IT School: Discover Cutting-Edge Courses, Hands-on Training, and Expert Guidance. Join Today for a Thriving Tech Career!',
         version: '1.0.0',
