@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.menu {
+
+  a:nth-child(n) {
+    //tümlinklereborder-bottomuygula
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color 0.5s ease;
+  }
+
+  a:hover {
+    // Mouse üzerine gelindiğinde border rengini değiştir
+    border-bottom-color: $color2;
+  }
+}
