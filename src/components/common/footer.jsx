@@ -1,66 +1,60 @@
-import './footer.scss'
-import { Col, Container, Row } from 'react-bootstrap'
+import "./footer.scss";
+import { Col, Container, Image, Nav, Row } from "react-bootstrap";
 import { FaAppStoreIos, FaGooglePlay } from "react-icons/fa";
+import { config } from "../../helpers/config";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-      <Container fluid className='footer'>
-          <Row>
-              <Col xs={12} md={4} className='section1'>
-              <div className='logo'>
-                      <a href="#home">
-                          <img src="/assets/images/logo/logo-white.png" alt="prettierhomes" />
-                      </a>
-              </div>
-              <div className='slogan'>
-                Our slogan, 'Unlocking Your Home's
-                Potential, Together,' reflects our dedication
-                to helping clients realize the full potential
-                of their real estate investments through
-                collaborative and personalized services.
-              </div>
-                  <div className='store'>
-                      <a href="appStore">
-                        <div>
-                          App Store
-                          <FaAppStoreIos />
-                        </div>
-                      </a>
-                      <a href="playStore">
-                        <div>
-                          Google Play
-                          <FaGooglePlay />
-                        </div>
-                      </a>
-                      
-              </div>
+    <footer>
+      <Container fluid className="footer">
+        <Row>
+          <Col xs={12} lg={3} md={4} className="section1">
+            <Link to="/">
+              <Image
+                src="/assets/images/logo/logo-white.png"
+                className="img-fluid"
+                alt={config.project.name}
+              />
+            </Link>
+            <p className="mt-3">{config.project.slogan}</p>
+            <div className="store">
+              <a href="appStore">
+                <div>
+                  App Store
+                  <FaAppStoreIos />
+                </div>
+              </a>
+              <a href="playStore">
+                <div>
+                  Google Play
+                  <FaGooglePlay />
+                </div>
+              </a>
+            </div>
           </Col>
-          <Col xs={12} sm={4} md={4} className='section2'>
-              <h2 className='quickLinks'>Quick Links</h2>
-              <div className='links'>
-                  <a href="#home">Home</a>
-                  <a href="#properties">Properties</a>
-                  <a href="#about">About</a>
-                  <a href="#contact">Contact</a>
-                  <a href="#privacyPolicy">Privacy Policy</a>
-              </div>
+          <Col xs={12} sm={4} md={4} className="section2">
+            <h3>Quick Links</h3>
+            <Nav className="flex-column">
+              <Nav.Link  as={Link} to="/">Home</Nav.Link>
+              <Nav.Link  as={Link} to="/courses">Properties</Nav.Link>
+              <Nav.Link  as={Link} to="/events">About</Nav.Link>
+              <Nav.Link  as={Link} to="/about">Contact</Nav.Link>
+              <Nav.Link  as={Link} to="/contact">Privacy Policy</Nav.Link>
+            </Nav>
           </Col>
-          <Col xs={12} sm={4}  md={4} className='section3'>
-              <h2 className='text'>Contact</h2>
-              <div className='contact'>
-                  <div className='address'>
-                      329 Queensberry Street, North Melbourne VIC 3051, Australia.</div>
-                  <div className='tel'>
-                  <a href="tel:+112345645665">+1-123-456-456-65</a>
-                  </div>
-                  <div className='mail'>
-                      <a href="mailto:info@realstate.com">info@realstate.com</a>
-                  </div>
-              </div>
+          <Col xs={12} sm={4} md={4} className="section3">
+          <h3>Contact</h3>
+            <Nav className="flex-column">
+              <Nav.Link href={config.contact.mapURL} target="_blank">{config.contact.address}</Nav.Link>
+              <Nav.Link href={`tel:${config.contact.phone1}`}>{config.contact.phone1}</Nav.Link>
+              <Nav.Link href={`mailto:${config.contact.email}`}>{config.contact.email}</Nav.Link>
+            </Nav>
           </Col>
-          </Row>
-    </Container>
-  )
-}
+        </Row>
+      </Container>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;
