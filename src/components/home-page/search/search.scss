@@ -1,0 +1,87 @@
+@import "../../../styles/variables";
+
+.search-box{
+    position: relative;  
+}
+
+.search-container {
+    position: relative;
+}
+
+.search {
+  position: absolute;
+  flex-direction: column;
+  top: 150px;
+  transform: translate(0, -30%);
+}
+
+.title {
+    margin-bottom: 5%;
+}
+.search-group {
+    text-align: start;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.radios{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.toggle {
+    border: 1px inset white;
+    border-radius: 5px 0px 0  0 !important;
+    -webkit-border-radius: 5px 0px 0  0 !important;
+    -moz-border-radius: 5px 0px 0  0 !important;
+    -ms-border-radius: 5px 0px 0  0 !important;
+    -o-border-radius: 5px 0px 0  0 !important;
+}
+
+.search-area {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: rgb(255, 251, 251);
+  border: 1px inset white;
+  border-radius: 0 5px 5px 5px;
+  height: 50px;
+  -webkit-border-radius: 0 5px 5px 5px;
+  -moz-border-radius: 0 5px 5px 5px;
+  -ms-border-radius: 0 5px 5px 5px;
+  -o-border-radius: 0 5px 5px 5px;
+}
+
+#search {
+  border-radius: 10px;
+  width: 100%;
+  height: 30px;
+}
+
+.search-button {
+  background-color: $color2 !important;
+  border-radius: 15px !important;
+  border: 1px solid $color2 !important;
+  padding: 5px 10px !important;
+  -webkit-border-radius: 15px !important;
+  -moz-border-radius: 15px !important;
+  -ms-border-radius: 15px !important;
+  -o-border-radius: 15px !important;
+}
+
+.search-input {
+  align-items: center;
+//   background-color: rgb(16, 245, 54);
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.search-image {
+  width: calc(
+    100% - 40px
+  ); /* Resmi container genişliğine sığdırır ve sağında ve solunda 5px boşluk bırakır */
+  margin: 0 20px; /* Resmin sağında ve solunda 5px boşluk bırakır */
+  margin-top: 10px;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+}
