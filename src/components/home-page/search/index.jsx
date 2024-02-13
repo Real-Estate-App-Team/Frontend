@@ -21,12 +21,12 @@ function Search() {
 
   const radios = [
     { name: "Rent", value: "1" },
-    { name: "Sale", value: "1" },
+    { name: "Sale", value: "2" },
   ];
 
   return (
     <div className="search-box">
-      <Container className="search-container">
+      <Container className="search-container ms-5 d-none d-sm-flex align-items-start justify-content-start py-2">
         <Row className="search">
           <Row className="title">
             <h2>Easy Way to Find a Perfect Property</h2>
@@ -67,7 +67,42 @@ function Search() {
           </Row>
 
           <Row className="radios-buttons">
-            <Col>Radios-Buttton</Col>
+            <Col>
+              <Form>
+                {["radio"].map((type) => (
+                  <div key={`inline-${type}`} className="mb-3">
+                    <Form.Check
+                      inline
+                      label="House"
+                      name="group1"
+                      type={type}
+                      id={`inline-${type}-1`}
+                    />
+                    <Form.Check
+                      inline
+                      label="Apartment"
+                      name="group1"
+                      type={type}
+                      id={`inline-${type}-2`}
+                    />
+                    <Form.Check
+                      inline
+                      label="Villa"
+                      name="group1"
+                      type={type}
+                      id={`inline-${type}-3`}
+                    />
+                    <Form.Check
+                      inline
+                      label="Office"
+                      name="group1"
+                      type={type}
+                      id={`inline-${type}-4`}
+                    />
+                  </div>
+                ))}
+              </Form>
+            </Col>
           </Row>
         </Row>
       </Container>
