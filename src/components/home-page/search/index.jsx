@@ -55,10 +55,10 @@ function Search() {
 
           <Row className="search-area">
             <Row className="search-input">
-              <Col md={10}>
+              <Col md={11} sm={9} className="search-text-col">
                 <Form.Control id="search" placeholder="search" type="text" />
               </Col>
-              <Col md={2}>
+              <Col md={1} sm={2} className="search-button-col">
                 <Button className="search-button">
                   <LiaSearchSolid />
                 </Button>
